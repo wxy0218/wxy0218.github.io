@@ -65,3 +65,59 @@ int strlen(char *s)
   return p - s; //Be careful, could be too large to store in an int
 }
 ```
+#### 5.5 Character Pointers and Functions
+```c
+char *pmessage;
+pmessage = "now is the time";
+```
+This assigns to `pmessaqe` a pointer to the character array. This is not a string copy; only pointers are involved. C does not provide any operators for processing an entire string of characters as a unit.
+
+There is an important difference between these definitions:
+```c
+char amessage[] = "now is the time"; /* an array */
+char *pmessage = "now is the time"; /* a pointer */
+```
+`amessaqe` is an array, just big enough to hold the sequence of characters and ,\0' that initializes it. Individual characters within the array may be changed but amessaqe will always refer to the same storage. 
+`pmessaqe` is a pointer.
+```c
+/* strcpy: copy t to s; array subscript version */ 
+void strcpy(char *s, char *t)
+{
+  int i;
+  i = 0;
+  while((s[i] = t[i]) != '\0')
+    i++
+}
+/* strcpy: copy t to s; pointer version 1 */ 
+void strcpy(char *s, char *t)
+{
+  while ((*s = *t) != '\0') {
+    s++;
+    t++;
+  }
+}
+
+/* strcpy: copy t to s; pointer version 2 */ 
+void strcpy(char *s, char *t)
+{
+  whi1e ((*s++ =*t++) != '\0')
+    ;
+}
+
+/* strcpy: copy t to s; pointer version 3 */ 
+void strcpy(char *s, char *t)
+{
+  whi1e (*s++ =*t++) // the question is merely whether the expression is zero
+    ;
+}
+
+/* strcmp: return <0 if s<t, 0 if s==t, >0 if s>t */
+int strcmp(char *s, char *t)
+{
+  for ( ; *s == *t; s++, t++)
+    if (*s == '\0')
+      return 0; 
+      
+  return *s - *t;
+}
+```
